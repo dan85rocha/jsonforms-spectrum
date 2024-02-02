@@ -1,0 +1,185 @@
+{
+  "type": "Categorization",
+  "elements": [
+    { 
+      "type": "Category",
+      "label": "Details",
+      "elements": [{
+        "type": "HorizontalLayout",
+        "elements": [
+          {
+            "type": "Control",
+            "scope": "#/properties/title"
+          },
+          {
+            "type": "Control",
+            "scope": "#/properties/appId",
+            "options": {
+              "readonly": true
+            }
+          }
+        ],
+        "options": {
+
+        }
+      },{
+        "type": "VerticalLayout",
+        "elements": [
+          {
+            "type": "Control",
+            "scope": "#/properties/description",
+            "options": {
+              "multi": true
+            }
+          }
+        ]
+      },{
+        "type": "HorizontalLayout",
+        "elements": [
+          {
+            "type": "Control",
+            "scope": "#/properties/hostManifests/properties/boa/properties/info/properties/ait"
+          },
+          {
+            "type": "Control",
+            "scope": "#/properties/version"
+          },
+          {
+            "type": "Control",
+            "scope": "#/properties/lang"
+          }
+        ]
+      },{
+        "type": "HorizontalLayout",
+        "elements": [
+          {
+            "type": "Control",
+            "scope": "#/properties/hostManifests/properties/boa/properties/info/properties/techLead"
+          },
+          {
+            "type": "Control",
+            "scope": "#/properties/publisher"
+          }
+        ]
+      },{
+        "type": "HorizontalLayout",
+        "elements": [
+          {
+            "type": "Control",
+            "scope": "#/properties/contactEmail"
+          },
+          {
+            "type": "Control",
+            "scope": "#/properties/supportEmail"
+          }
+        ]
+      },{
+        "type": "VerticalLayout",
+        "elements": [
+          {
+            "type": "Control",
+            "scope": "#/properties/moreInfo"
+          }
+        ]
+      },{
+        "type": "HorizontalLayout",
+        "elements": [
+          {
+            "type": "Control",
+            "scope": "#/properties/categories"
+          },
+          {
+            "type": "Control",
+            "scope": "#/properties/hostManifests/properties/boa/properties/info/properties/lobs"
+          },
+          {
+            "type": "Control",
+            "scope": "#/properties/hostManifests/properties/boa/properties/info/properties/areas"
+          }
+        ]
+      }]
+    },{
+      "type": "Category",
+      "label": "Images",
+      "elements": [
+        {
+          "type": "Control",
+          "scope": "#/properties/icons"
+        },
+        {
+          "type": "Control",
+          "scope": "#/properties/screenshots"
+        }
+      ]
+    },{
+      "type": "Category",
+      "label": "Environments",
+      "elements": [{
+        "type": "VerticalLayout",
+        "elements": [
+          {
+            "type": "Control",
+            "scope": "#/properties/hostManifests/properties/boa/properties/environments",
+            "options": {
+              "labelRef": "#/items/properties/tag",
+              "showSortButtons": true,
+              "detail": {
+                "type": "VerticalLayout",
+                "elements": [{
+                  "type": "Control",
+                  "scope": "#/properties/manifestType"
+                },{
+                  "type": "Control",
+                  "scope": "#/properties/tag"
+                },{
+                  "type": "Control",
+                  "scope": "#/properties/config",
+                  "options": {
+                    "codeMirror": true
+                  }
+                }]
+              }
+            }
+          }
+        ]
+      }]
+    },
+    {
+      "type": "Category",
+      "label": "Interop",
+      "elements": [{
+        "type": "Group",
+        "label": "Intents",
+        "elements": [{
+          "type": "VerticalLayout",
+          "elements": [
+            {
+              "type": "Control",
+              "scope": "#/properties/interop/properties/intents/properties/listensFor",
+              "options": {
+                "labelRef": "#/properties/intent",
+                "detail": {
+                  "type": "VerticalLayout",
+                  "elements": [
+                    {
+                      "type": "Control",
+                      "scope": "#/properties/intent"
+                    },
+                    {
+                      "type": "Control",
+                      "scope": "#/properties/contexts"
+                    },
+                    {
+                      "type": "Control",
+                      "scope": "#/properties/resultType"
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        }]
+      }]
+    }
+  ]
+}

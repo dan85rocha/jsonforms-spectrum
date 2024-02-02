@@ -1,0 +1,641 @@
+.custom-tooltip {
+  position: absolute;
+  right: -8px;
+  margin-top: 4px;
+}
+
+.custom-tooltip-parent {
+  position: relative;
+}
+
+button {
+  cursor: pointer !important;
+}
+
+.JsonFormsDispatchContainer,
+.array-item-header,
+div[class^='spectrum-Textfield'] {
+  width: 100%;
+}
+
+/* Array */
+.spectrum-array-item-container {
+  height: 40px !important;
+}
+
+.spectrum-array-item-number {
+  --spectrum-array-item-number-size: 1.2rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--spectrum-array-item-number-size);
+  height: var(--spectrum-array-item-number-size);
+  border-radius: 50%;
+  overflow: hidden;
+  line-height: var(--spectrum-array-item-number-size);
+  font-size: 0.75em;
+  font-weight: 500;
+  text-align: center;
+  color: var(--spectrum-tooltip-text-color, var(--spectrum-global-color-static-white));
+  flex-shrink: 0;
+  background-color: var(
+    --spectrum-tooltip-background-color,
+    var(--spectrum-global-color-static-gray-700)
+  ) !important;
+}
+
+.grabbable {
+  display: flex;
+  width: 50px;
+  background-color: transparent;
+  fill: var(--spectrum-actionbutton-icon-color, var(--spectrum-alias-icon-color));
+  border-radius: var(
+    --spectrum-actionbutton-quiet-border-radius,
+    var(--spectrum-alias-border-radius-regular)
+  );
+  border-color: transparent;
+  margin: -5px -12px -5px 0px;
+  touch-action: none;
+  min-width: 34px;
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Old versions of Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently supported by Chrome, Edge, Opera and Firefox */
+  outline: none;
+}
+
+.grabcursor {
+  cursor: move !important; /* fallback if grab cursor is unsupported */
+  cursor: grab !important;
+  cursor: -webkit-grab !important;
+  cursor: -moz-grab !important;
+  cursor: -o-grab !important;
+  cursor: -ms-grab !important;
+}
+
+/* Apply a "closed-hand" cursor during drag operation. */
+.grabcursor:active {
+  cursor: grabbing !important;
+  cursor: -webkit-grabbing !important;
+  cursor: -moz-grabbing !important;
+  cursor: -o-grabbing !important;
+  cursor: -ms-grabbing !important;
+}
+
+.ArrowIcon {
+  padding: 6px 0px;
+}
+
+.grabbable:focus-visible {
+  box-shadow: 0 0 0 1px
+    var(
+      --spectrum-actionbutton-quiet-border-color-key-focus,
+      var(--spectrum-alias-border-color-focus)
+    );
+  border-color: var(
+    --spectrum-actionbutton-quiet-border-color-key-focus,
+    var(--spectrum-alias-border-color-focus)
+  );
+  border-width: var(--spectrum-actionbutton-border-size, var(--spectrum-alias-border-size-thin));
+}
+
+.animatedModalItem.animatedModalItemDiv.detailedView {
+  background-color: var(--spectrum-global-color-gray-100);
+  top: 0;
+  z-index: 9000;
+  width: 95%;
+  min-height: 100%;
+  height: 100%;
+  flex-grow: 1;
+  position: absolute;
+  background-color: var(--spectrum-global-color-gray-100);
+  overflow-x: hidden;
+  overflow-y: auto;
+
+  border-left-color: var(
+    --spectrum-alias-border-color-dark,
+    var(--spectrum-global-color-dark, var(--spectrum-semantic-dark-color-border))
+  );
+  border-left-width: var(--spectrum-alias-border-size-thin);
+  border-left-style: solid;
+}
+.animatedModalItem.animatedModalItemDiv.detailedView
+  > .json-form-dispatch-wrapper
+  > .array-item-header {
+  position: sticky;
+  width: 100%;
+  padding: 10px 13px 10px 13px;
+  margin-top: -12px;
+  top: -12px;
+  left: 0;
+
+  background-color: var(--spectrum-global-color-gray-100);
+  z-index: 1;
+  border-bottom-color: var(
+    --spectrum-alias-border-color-dark,
+    var(--spectrum-global-color-dark, var(--spectrum-semantic-dark-color-border))
+  );
+  border-bottom-width: var(--spectrum-alias-border-size-thin);
+  border-bottom-style: solid;
+}
+
+.list-array-item:has(.json-form-dispatch-wrapper) {
+  display: flex;
+  flex-direction: column;
+}
+
+.json-form-dispatch-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.json-form-dispatch-wrapper:not(:has(section)) > .array-item-content {
+  margin: var(--spectrum-global-dimension-size-160, var(--spectrum-alias-size-160));
+  border: 2px solid transparent;
+}
+
+.animatedModalItem.darkenBackground {
+  background-color: rgba(0, 0, 0, 1);
+  opacity: 0.2;
+  z-index: 8000;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 95%;
+}
+
+.animatedModalItem.animatedModalWrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+#json-form-array-wrapper {
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.App-Form {
+  min-height: 80vh;
+  position: relative;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.JsonFormsDispatchContainer label {
+  display: none;
+}
+
+.JsonFormsDispatchContainer section {
+  margin: 0 0 0 10px !important;
+}
+
+.list-array-item {
+  background-color: var(--spectrum-global-color-gray-100);
+  padding: 10px !important;
+  min-height: 62px !important;
+  display: flex;
+  align-items: center;
+}
+
+.list-array-item:not(:has(.json-form-dispatch-wrapper)) {
+  height: 62px !important;
+}
+
+.list-array-item.noAccordion {
+  padding: 8px 12px !important;
+}
+
+.disabledMovement {
+  cursor: not-allowed !important;
+}
+
+.keyboardMovement {
+  fill: var(
+    --spectrum-actionbutton-quiet-border-color-key-focus,
+    var(--spectrum-alias-border-color-focus)
+  );
+}
+@media (hover: none) and (pointer: coarse) {
+  .keyboardMovement {
+    fill: inherit;
+  }
+}
+
+.keyboardUser,
+.keyboard-user .mouseDragHandle {
+  display: none;
+}
+
+.keyboard-user .keyboardUser,
+.pointer-user .mouseUser {
+  display: flex;
+  fill: var(--spectrum-actionbutton-icon-color, var(--spectrum-alias-icon-color));
+}
+
+.add-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 62px;
+  cursor: pointer;
+  background-color: var(--spectrum-global-color-gray-100);
+  outline: none;
+  padding: 0;
+  margin: 0 0 10px 0;
+  border-radius: var(--spectrum-alias-border-radius-medium) !important;
+  border: 1px dashed
+    var(
+      --spectrum-alias-border-color-dark,
+      var(--spectrum-global-color-dark, var(--spectrum-semantic-dark-color-border))
+    ) !important;
+}
+
+.add-item:focus {
+  outline: none;
+}
+
+.add-item:focus-visible {
+  outline: none;
+  border: 2px solid
+    var(
+      --spectrum-actionbutton-quiet-border-color-key-focus,
+      var(--spectrum-alias-border-color-focus)
+    ) !important;
+  box-shadow: none;
+}
+.add-container {
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  width: 100%;
+  z-index: 80;
+}
+
+.add-container:before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  border-top: 3px solid
+    var(
+      --spectrum-actionbutton-quiet-border-color-key-focus,
+      var(--spectrum-alias-border-color-focus)
+    );
+  background: var(
+    --spectrum-actionbutton-quiet-border-color-key-focus,
+    var(--spectrum-alias-border-color-focus)
+  );
+  width: 100%;
+  transform: translateY(-50%);
+}
+
+/* List with Detail */
+.list-with-detail-master-item-row[aria-selected='true'] {
+  background-color: var(--spectrum-global-color-gray-200);
+}
+
+.list-with-detail-master-item-number {
+  --list-with-detail-master-item-number-size: 1.2rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--list-with-detail-master-item-number-size);
+  height: var(--list-with-detail-master-item-number-size);
+  border-radius: 50%;
+  overflow: hidden;
+  line-height: var(--list-with-detail-master-item-number-size);
+  font-size: 0.75em;
+  font-weight: 500;
+  text-align: center;
+  background-color: var(
+    --spectrum-tooltip-background-color,
+    var(--spectrum-global-color-static-gray-700)
+  );
+  color: var(--spectrum-tooltip-text-color, var(--spectrum-global-color-static-white));
+}
+
+[aria-selected='true'] .list-with-detail-master-item-number {
+  background-color: var(--spectrum-global-color-gray-900);
+  color: var(--spectrum-tooltip-text-color, var(--spectrum-global-color-static-white));
+}
+
+/* TipTap */
+.ProseMirror {
+  background-color: var(
+    --spectrum-textfield-background-color,
+    var(--spectrum-global-color-gray-50)
+  );
+  color: var(--spectrum-textfield-text-color, var(--spectrum-alias-text-color));
+  box-sizing: border-box;
+  border: var(--spectrum-textfield-border-size, var(--spectrum-alias-border-size-thin)) solid;
+  border-color: var(--spectrum-textfield-border-color, var(--spectrum-alias-border-color));
+  border-radius: 0 0
+    var(--spectrum-textfield-border-radius, var(--spectrum-alias-border-radius-regular))
+    var(--spectrum-textfield-border-radius, var(--spectrum-alias-border-radius-regular));
+  height: auto;
+  max-height: 45vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+  width: auto;
+  min-height: 129px;
+  padding: 3px var(--spectrum-textfield-padding-x, var(--spectrum-global-dimension-size-150)) 5px
+    calc(var(--spectrum-textfield-padding-x, var(--spectrum-global-dimension-size-150)) - 1px);
+  text-indent: 0;
+  vertical-align: top;
+  font-size: var(--spectrum-textfield-text-size, var(--spectrum-alias-font-size-default));
+  line-height: var(
+    --spectrum-textfield-text-line-height,
+    var(--spectrum-alias-body-text-line-height)
+  );
+  text-overflow: ellipsis;
+  outline: 0;
+}
+
+.noToolbar > .ProseMirror {
+  border-radius: var(
+    --spectrum-textfield-border-radius,
+    var(--spectrum-alias-border-radius-regular)
+  ) !important;
+}
+
+.ProseMirror-focused {
+  border-color: var(
+    --spectrum-textfield-border-color-down,
+    var(--spectrum-alias-border-color-mouse-focus)
+  );
+}
+
+.keyboard-user .ProseMirror-focused {
+  border-width: 2px;
+}
+
+.TipTapToolbar {
+  border-radius: var(
+      --spectrum-textfield-border-radius,
+      var(--spectrum-alias-border-radius-regular)
+    )
+    var(--spectrum-textfield-border-radius, var(--spectrum-alias-border-radius-regular)) 0 0 !important;
+  border-bottom: none !important;
+}
+
+.LastToolbarButton {
+  margin-right: 8px;
+}
+
+.readOnly > .ProseMirror {
+  background-color: var(
+    --spectrum-textfield-background-color-disabled,
+    var(--spectrum-global-color-gray-200)
+  );
+  color: var(--spectrum-textfield-text-color-disabled, var(--spectrum-alias-text-color-disabled));
+  -webkit-text-fill-color: var(
+    --spectrum-textfield-text-color-disabled,
+    var(--spectrum-alias-text-color-disabled)
+  );
+}
+
+.readOnly.noToolbar > .ProseMirror {
+  border-color: var(
+    --spectrum-textfield-border-color-disabled,
+    var(--spectrum-alias-border-color-transparent)
+  );
+}
+
+/* CodeMirror */
+.SpectrumCodeMirror {
+  background-color: var(
+    --spectrum-textfield-background-color,
+    var(--spectrum-global-color-gray-50)
+  );
+  color: var(--spectrum-textfield-text-color, var(--spectrum-alias-text-color));
+  box-sizing: border-box;
+  border: var(--spectrum-textfield-border-size, var(--spectrum-alias-border-size-thin)) solid;
+  border-color: var(--spectrum-textfield-border-color, var(--spectrum-alias-border-color));
+  border-radius: var(
+    --spectrum-textfield-border-radius,
+    var(--spectrum-alias-border-radius-regular)
+  );
+  height: auto;
+  min-height: 30px;
+  max-height: 45vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+  width: auto;
+  padding: 0 3px var(--spectrum-textfield-padding-x, var(--spectrum-global-dimension-size-150)) 5px
+    calc(var(--spectrum-textfield-padding-x, var(--spectrum-global-dimension-size-150)) - 1px);
+  text-indent: 0;
+  vertical-align: top;
+  font-size: var(--spectrum-textfield-text-size, var(--spectrum-alias-font-size-default));
+  line-height: var(
+    --spectrum-textfield-text-line-height,
+    var(--spectrum-alias-body-text-line-height)
+  );
+  outline: 0;
+}
+
+.cm-gutters,
+.cm-gutter {
+  min-height: 28px !important;
+  height: 100% !important;
+  padding-bottom: 2.5px !important;
+}
+
+.cm-content {
+  padding: 5px 0 !important;
+}
+
+.SpectrumCodeMirror:focus-within {
+  border-color: var(
+    --spectrum-textfield-border-color-down,
+    var(--spectrum-alias-border-color-mouse-focus)
+  ) !important;
+  border: var(--spectrum-textfield-border-size, var(--spectrum-alias-border-size-thin)) solid;
+  border-radius: var(
+    --spectrum-textfield-border-radius,
+    var(--spectrum-alias-border-radius-regular)
+  );
+}
+
+.SpectrumLabel {
+  font-size: var(--spectrum-fieldlabel-text-size, var(--spectrum-global-dimension-font-size-75));
+  font-weight: var(
+    --spectrum-fieldlabel-text-font-weight,
+    var(--spectrum-global-font-weight-regular)
+  );
+  line-height: var(
+    --spectrum-fieldlabel-text-line-height,
+    var(--spectrum-global-font-line-height-small)
+  );
+  color: var(--spectrum-fieldlabel-text-color, var(--spectrum-alias-label-text-color));
+}
+
+.SpectrumCodeMirror > .cm-editor {
+  background-color: var(
+    --spectrum-textfield-background-color,
+    var(--spectrum-global-color-gray-50)
+  );
+  border-color: var(--spectrum-textfield-border-color, var(--spectrum-alias-border-color));
+  color: var(--spectrum-textfield-text-color, var(--spectrum-alias-text-color));
+}
+
+.SpectrumCodeMirror > .cm-editor > .cm-scroller > .cm-gutters {
+  background-color: var(
+    --spectrum-fieldbutton-background-color-down,
+    var(--spectrum-global-color-gray-200)
+  );
+  border-color: var(
+    --spectrum-fieldbutton-border-color-down,
+    var(--spectrum-alias-border-color-down)
+  );
+  color: var(--spectrum-textfield-text-color, var(--spectrum-alias-text-color));
+}
+
+.SpectrumCodeMirror > .cm-editor > .cm-scroller > .cm-content > .cm-activeLine,
+.SpectrumCodeMirror > .cm-editor > .cm-scroller > .cm-gutters > .cm-gutter > .cm-activeLineGutter {
+  background-color: var(
+    --spectrum-table-row-background-color-selected-hover,
+    var(--spectrum-alias-highlight-selected-hover)
+  ) !important;
+}
+
+/* Creates a Zebra Layout */
+.SpectrumCodeMirror > .cm-editor > .cm-scroller > .cm-content > div:nth-child(even) {
+  background-color: var(
+    --spectrum-table-row-background-color-hover,
+    var(--spectrum-alias-highlight-hover)
+  );
+}
+
+.readOnly,
+.SpectrumCodeMirror.readOnly > .cm-editor > .cm-scroller {
+  background-color: var(
+    --spectrum-textfield-background-color-disabled,
+    var(--spectrum-global-color-gray-200)
+  );
+  color: var(--spectrum-textfield-text-color-disabled, var(--spectrum-alias-text-color-disabled));
+  -webkit-text-fill-color: var(
+    --spectrum-textfield-text-color-disabled,
+    var(--spectrum-alias-text-color-disabled)
+  );
+  border-color: var(
+    --spectrum-textfield-border-color-disabled,
+    var(--spectrum-alias-border-color-transparent)
+  );
+}
+
+.SpectrumCodeMirror.readOnly,
+.SpectrumCodeMirror.readOnly > .cm-editor > .cm-scroller {
+  background-color: var(
+    --spectrum-textfield-background-color-disabled,
+    var(--spectrum-global-color-gray-200)
+  );
+  color: var(--spectrum-textfield-text-color-disabled, var(--spectrum-alias-text-color-disabled));
+  -webkit-text-fill-color: var(
+    --spectrum-textfield-text-color-disabled,
+    var(--spectrum-alias-text-color-disabled)
+  );
+  border-color: var(
+    --spectrum-textfield-border-color-disabled,
+    var(--spectrum-alias-border-color-transparent)
+  );
+}
+
+.SpectrumCodeMirror.readOnly > .cm-editor > .cm-scroller > .cm-content > .cm-activeLine,
+.SpectrumCodeMirror.readOnly
+  > .cm-editor
+  > .cm-scroller
+  > .cm-gutters
+  > .cm-gutter
+  > .cm-activeLineGutter {
+  background-color: transparent !important;
+}
+
+.keyboard-user .SpectrumCodeMirror:focus-within {
+  border-width: 2px;
+  border-color: var(--spectrum-textfield-border-color, var(--spectrum-alias-border-color));
+}
+
+/* SpectrumCategorizationStepper */
+.categorization-stepper {
+  counter-reset: categorization-step-number;
+}
+
+.categorization-stepper div[role='tab'] {
+  counter-increment: categorization-step-number;
+}
+
+.categorization-stepper div[role='tab'] > span:before {
+  --categorization-stepper-number-size: 1.2rem;
+
+  display: inline-block;
+  width: var(--categorization-stepper-number-size);
+  height: var(--categorization-stepper-number-size);
+  border-radius: 50%;
+  margin-right: 0.4rem;
+  overflow: hidden;
+  content: counter(categorization-step-number);
+  text-align: center;
+  vertical-align: middle;
+  line-height: var(--categorization-stepper-number-size);
+  font-size: 0.75em;
+  font-weight: 500;
+  background-color: var(--spectrum-global-color-gray-500);
+  color: var(--spectrum-global-color-gray-200);
+}
+
+.categorization-stepper div[role='tab'][aria-selected='true'] > span:before {
+  background-color: var(--spectrum-global-color-gray-900);
+  color: var(--spectrum-global-color-gray-100);
+}
+
+/* ContentFragmentReferenceWithDetailLayout & MediaPreviewLayout */
+.animatedModalItem.animatedModalItemDiv.detailedView > .array-item-header {
+  position: sticky;
+  width: 100%;
+  padding: 10px 13px 10px 13px;
+  margin-top: -12px;
+  top: -12px;
+  left: 0;
+
+  background-color: var(--spectrum-global-color-gray-100);
+  z-index: 1;
+  border-bottom-color: var(
+    --spectrum-alias-border-color-dark,
+    var(--spectrum-global-color-dark, var(--spectrum-semantic-dark-color-border))
+  );
+  border-bottom-width: var(--spectrum-alias-border-size-thin);
+  border-bottom-style: solid;
+}
+
+/* InputText */
+.assetPickerButton {
+  min-width: min-content !important;
+  /* margin-top: 25px !important; */
+  margin-left: 5px !important;
+}
+
+.assetPickerButtonBottom {
+  min-width: min-content !important;
+  margin-top: 5px !important;
+  margin-right: 3px !important;
+}
+
+div:has(> div[id^='#/'][hidden]) {
+  display: none !important;
+}
+
+.arrowContainer {
+  padding: 3px 7px;
+}
