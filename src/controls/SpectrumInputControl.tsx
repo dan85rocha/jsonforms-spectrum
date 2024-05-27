@@ -27,7 +27,7 @@
 */
 import { ControlProps, isDescriptionHidden } from '@jsonforms/core';
 import merge from 'lodash/merge';
-import { Flex, Text, View, TooltipTrigger, Tooltip, ActionButton } from '@adobe/react-spectrum';
+import { Flex, Text, View, TooltipTrigger, Tooltip, ActionButton, ContextualHelp, Heading, Content } from '@adobe/react-spectrum';
 import Info from "@spectrum-icons/workflow/Info";
 import { useFocus } from '../util';
 import SpectrumProvider from '../additional/SpectrumProvider';
@@ -42,6 +42,7 @@ export const SpectrumInputControl = (props: ControlProps & WithInput) => {
   const { description, id, errors, uischema, visible, config, input, data, schema } = props;
   const newProps = {...props, ...{data: data || schema?.default}}
   const InnerComponent = input;
+  // console.log("INPUT", input);
 
   const isValid = errors.length === 0;
   // const appliedUiSchemaOptions = merge({}, config, uischema.options);
@@ -58,14 +59,21 @@ export const SpectrumInputControl = (props: ControlProps & WithInput) => {
   let info = null
   if (description) {
     info = (
-      <View>
-        <TooltipTrigger delay={1000}>
-          <ActionButton isQuiet margin={0} height={16} width={16} isDisabled={false} >
-            <Info size='XS' height={16} width={16} />
-          </ActionButton>
-          <Tooltip>{description}</Tooltip>
-        </TooltipTrigger>
-      </View>
+      <ContextualHelp variant="info">
+        <Content>
+          <Text>
+            {description}
+          </Text>
+        </Content>
+      </ContextualHelp>
+      // <View>
+      //   <TooltipTrigger delay={1000}>
+      //     <ActionButton isQuiet margin={0} height={16} width={16} isDisabled={false} >
+      //       <Info size='XS' height={16} width={16} />
+      //     </ActionButton>
+      //     <Tooltip>{description} asdasd</Tooltip>
+      //   </TooltipTrigger>
+      // </View>
     )
   }
 

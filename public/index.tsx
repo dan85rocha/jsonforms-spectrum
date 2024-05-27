@@ -26,13 +26,13 @@
   THE SOFTWARE.
 */
 import { createRoot } from 'react-dom/client';
-import { HashRouter as Router, Routes, Route } from 'react-router-dom';
+// import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import React, { createContext } from 'react';
 import './index.css';
-import { ConnectedApp } from './App';
-import { combineReducers, legacy_createStore as createStore } from 'redux';
-import { Provider } from 'react-redux';
-import geoschema from './geographical-location.schema';
+// import { ConnectedApp } from './App';
+// import { combineReducers, legacy_createStore as createStore } from 'redux';
+// import { Provider } from 'react-redux';
+// import geoschema from './geographical-location.schema';
 import {
   Actions,
   createAjv,
@@ -41,9 +41,10 @@ import {
   JsonFormsRendererRegistryEntry,
   RankedTester,
 } from '@jsonforms/core';
-import { getExamples, registerExamples } from '@jsonforms/examples';
-import { exampleReducer } from './reduxUtil';
-import { enhanceExample, ReactExampleDescription } from './util';
+// import { getExamples, registerExamples } from '@jsonforms/examples';
+// import { exampleReducer } from './reduxUtil';
+// import { enhanceExample, ReactExampleDescription } from './util';
+import { ControlledApp } from './Controlled';
 
 declare global {
   interface Window {
@@ -51,94 +52,100 @@ declare global {
   }
 }
 
-import { defaultTheme, Provider as SpectrumThemeProvider } from '@adobe/react-spectrum';
+// import { defaultTheme, Provider as SpectrumThemeProvider } from '@adobe/react-spectrum';
 
-const getExampleSchemas = () => {
-  if (window.samples) {
-    registerExamples(window.samples);
-  }
+// const getExampleSchemas = () => {
+//   if (window.samples) {
+//     registerExamples(window.samples);
+//   }
 
-  const examples = getExamples();
-  return examples;
-};
-const ColorSchemeContext = createContext<'light' | 'dark'>('light');
+//   const examples = getExamples();
+//   return examples;
+// };
+// const ColorSchemeContext = createContext<'light' | 'dark'>('light');
 
-const setupStore = (
-  exampleData: ReactExampleDescription[],
-  cells: JsonFormsCellRendererRegistryEntry[],
-  renderers: JsonFormsRendererRegistryEntry[]
-) => {
-  const reducer = combineReducers({
-    jsonforms: combineReducers(jsonFormsReducerConfig),
-    examples: exampleReducer,
-  });
-  const store = createStore(reducer, {
-    jsonforms: {
-      cells: cells,
-      renderers: renderers,
-    },
-    examples: {
-      data: exampleData,
-    },
-  });
+// const setupStore = (
+//   exampleData: ReactExampleDescription[],
+//   cells: JsonFormsCellRendererRegistryEntry[],
+//   renderers: JsonFormsRendererRegistryEntry[]
+// ) => {
+//   const reducer = combineReducers({
+//     jsonforms: combineReducers(jsonFormsReducerConfig),
+//     examples: exampleReducer,
+//   });
+//   const store = createStore(reducer, {
+//     jsonforms: {
+//       cells: cells,
+//       renderers: renderers,
+//     },
+//     examples: {
+//       data: exampleData,
+//     },
+//   });
 
-  // Resolve example configuration
-  // Add schema to validation
-  const ajv = createAjv({ useDefaults: true });
-  ajv.addSchema(geoschema, 'geographical-location.schema.json');
-  // Allow json-schema-ref-resolver to resolve same schema
-  const geoResolver = {
-    order: 1,
-    canRead: (file: any) => {
-      return file.url.indexOf('geographical-location.schema.json') !== -1;
-    },
-    read: () => {
-      return JSON.stringify(geoschema);
-    },
-  };
-  // Add configuration to JSONForms
-  store.dispatch(
-    Actions.init(
-      exampleData[exampleData.length - 1].data,
-      exampleData[exampleData.length - 1].schema,
-      exampleData[exampleData.length - 1].uischema,
-      {
-        ajv: ajv,
-        /* refParserOptions: {
-          resolve: {
-            geo: geoResolver,
-          } as any,
-        }, */
-      }
-    )
-  );
-  return store;
-};
+//   // Resolve example configuration
+//   // Add schema to validation
+//   const ajv = createAjv({ useDefaults: true });
+//   ajv.addSchema(geoschema, 'geographical-location.schema.json');
+//   // Allow json-schema-ref-resolver to resolve same schema
+//   const geoResolver = {
+//     order: 1,
+//     canRead: (file: any) => {
+//       return file.url.indexOf('geographical-location.schema.json') !== -1;
+//     },
+//     read: () => {
+//       return JSON.stringify(geoschema);
+//     },
+//   };
+//   // Add configuration to JSONForms
+//   store.dispatch(
+//     Actions.init(
+//       exampleData[exampleData.length - 1].data,
+//       exampleData[exampleData.length - 1].schema,
+//       exampleData[exampleData.length - 1].uischema,
+//       {
+//         ajv: ajv,
+//         /* refParserOptions: {
+//           resolve: {
+//             geo: geoResolver,
+//           } as any,
+//         }, */
+//       }
+//     )
+//   );
+//   return store;
+// };
 export const renderExample = (
   renderers: { tester: RankedTester; renderer: any }[],
   cells: { tester: RankedTester; cell: any }[],
   preferredColorScheme: 'light' | 'dark'
 ) => {
-  const exampleData = enhanceExample(getExampleSchemas());
-  const store = setupStore(exampleData, cells, renderers);
-  const rerender = (colorScheme: 'light' | 'dark') => {
-    const container = document.getElementById('root');
-    const root = createRoot(container!);
-    root.render(
-      <Provider store={store}>
-        <SpectrumThemeProvider colorScheme={colorScheme} theme={defaultTheme}>
-          <ColorSchemeContext.Provider value={colorScheme}>
-            <Router>
-              <Routes>
-                <Route path='/:name' element={<ConnectedApp />} />
-                <Route path='/' element={<ConnectedApp />} />
-              </Routes>
-            </Router>
-          </ColorSchemeContext.Provider>
-        </SpectrumThemeProvider>
-      </Provider>
-    );
-  };
-  rerender(preferredColorScheme);
-  return rerender;
+  // const exampleData = enhanceExample(getExampleSchemas());
+  // const store = setupStore(exampleData, cells, renderers);
+  // const rerender = (colorScheme: 'light' | 'dark') => {
+  //   const container = document.getElementById('root');
+  //   const root = createRoot(container!);
+  //   root.render(
+  //     <ControlledApp />
+  //     // <Provider store={store}>
+  //     //   <SpectrumThemeProvider colorScheme={colorScheme} theme={defaultTheme}>
+  //     //     <ColorSchemeContext.Provider value={colorScheme}>
+  //     //       <Router>
+  //     //         <Routes>
+  //     //           <Route path='/controlled' element={<ControlledApp />} />
+  //     //           {/* <Route path='/:name' element={<ConnectedApp />} /> */}
+  //     //           {/* <Route path='/' element={<ConnectedApp />} /> */}
+  //     //         </Routes>
+  //     //       </Router>
+  //     //     </ColorSchemeContext.Provider>
+  //     //   </SpectrumThemeProvider>
+  //     // </Provider>
+  //   );
+  // };
+  // rerender(preferredColorScheme);
+  // return <ControlledApp />;
+
+  const container = document.getElementById('root');
+  const root = createRoot(container!);
+  root.render(<ControlledApp />)
 };

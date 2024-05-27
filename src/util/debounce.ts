@@ -7,12 +7,16 @@ export const useDebouncedChange = (
   data: any,
   path: string
 ): [any, (value: any) => void, () => void] => {
-  const timeout = 300;
+  let first = true;
+  const timeout = 500;
   const [input, setInput] = useState(data ?? defaultValue);
   const debouncedUpdate = useCallback(
     debounce((newValue: any) => {
-      handleChange(path, newValue);
-    }, timeout),
+      if (!first) {
+        handleChange(path, newValue);
+      }
+      first = false;
+    }, timeout, {leading: false, trailing: true}),
     [handleChange, path, timeout]
   );
 

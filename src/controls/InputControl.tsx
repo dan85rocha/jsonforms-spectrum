@@ -62,7 +62,7 @@ export const InputControl = ({
   }; // TODO: remove when fully implemented with Spectrum
   const isValid = errors.length === 0;
   const divClassNames = `validation  ${isValid ? classNames.description : 'validation_error'}`;
-
+  console.log("BLAH");
   const appliedUiSchemaOptions = merge({}, config, uischema.options);
   const showDescription = !isDescriptionHidden(
     visible,

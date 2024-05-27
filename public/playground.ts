@@ -30,4 +30,4 @@ import { SpectrumCells, SpectrumRenderers } from '../src/index';
 import { renderExample } from './index';
 
 const rerender = renderExample(SpectrumRenderers, SpectrumCells, getPreferredTheme());
-createThemeSelection(rerender);
+// createThemeSelection(rerender);

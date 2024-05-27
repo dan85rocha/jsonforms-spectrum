@@ -22,7 +22,7 @@
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
   THE SOFTWARE.
 */
-import React from 'react';
+import React, { useEffect } from 'react';
 import { CellProps } from '@jsonforms/core';
 import merge from 'lodash/merge';
 import { DimensionValue } from '@react-types/shared';
@@ -33,6 +33,7 @@ import { circularReferenceReplacer } from '../../util';
 import CodeMirror from '@uiw/react-codemirror';
 import { json, jsonParseLinter } from '@codemirror/lang-json';
 import { linter, lintGutter } from '@codemirror/lint';
+import { debounce, last } from 'lodash';
 
 export const InputCodeMirror = React.memo(
   ({
@@ -55,6 +56,8 @@ export const InputCodeMirror = React.memo(
     const [value, setValue] = React.useState(data);
     const [initialValue, setInitialValue] = React.useState(data);
     const [cachedValue, setCachedValue] = React.useState(data);
+    const [lastSelection, setLastSelection] = React.useState();
+    const cm = React.useRef();
     const err = getErr(value);
     const cachedErr = getErr(cachedValue);
     /* const save = React.useCallback(() => {
@@ -79,6 +82,8 @@ export const InputCodeMirror = React.memo(
 
     const onChangeHandler = React.useCallback(
       (newValue: any, _viewUpdate: any) => {
+        // console.log("VIEW UPDATE", _viewUpdate, _viewUpdate.state.selection)
+        setLastSelection(_viewUpdate.state.selection)
         setCachedValue(newValue);
         setValue(newValue);
         if (!getErr(newValue) && !cachedErr && !showSaveButton) {
@@ -104,6 +109,21 @@ export const InputCodeMirror = React.memo(
       }
     }
 
+    useEffect(() => {
+      setValue(data);
+      // console.log("LAST SELECTION", lastSelection)
+      if (lastSelection && cm.current?.view) {
+        // console.log("APPLY LAST SELECTION", cm.current?.view, lastSelection);
+        try {
+          cm.current?.view.dispatch({
+            selection: lastSelection
+          })
+        } catch (error) {
+          // console.warn(error);
+        }
+      }
+    }, [data])
+
     return (
       <SpectrumProvider width={width} isHidden={!visible}>
         {label && (
@@ -115,14 +135,16 @@ export const InputCodeMirror = React.memo(
           </label>
         )}
         <CodeMirror
-          value={JSON.stringify(initialValue, circularReferenceReplacer(), 2) || ''}
-          onChange={onChangeHandler}
+          ref={cm}
+          value={JSON.stringify(data, null, 2) || ''}
+          onChange={debounce(onChangeHandler, 500)}
           extensions={
             err || cachedErr ? [json(), linter(jsonParseLinter()), lintGutter()] : [json()]
           }
           className={`SpectrumCodeMirror ${enabled ? '' : 'readOnly'}`}
           theme={colorScheme === 'dark' ? 'dark' : 'light'}
           editable={!readOnly && enabled}
+        
         />
         {!hideFormatButton && !readOnly && enabled && (
           <View paddingTop='size-50'>

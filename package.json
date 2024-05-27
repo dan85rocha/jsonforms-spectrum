@@ -51,8 +51,9 @@
     "@codemirror/lint": "^6.2.0",
     "@date-io/moment": "2.16.1",
     "@internationalized/date": "^3.1.0",
-    "@jsonforms/core": "^3.0.0",
-    "@jsonforms/react": "^3.0.0",
+    "@jsonforms/core": "^3.2.1",
+    "@jsonforms/material-renderers": "^3.2.1",
+    "@jsonforms/react": "^3.2.1",
     "@react-spectrum/tag": "^3.0.0-beta.3",
     "@spectrum-icons/workflow": "^4.2.8",
     "@tiptap/core": "^2.0.0-beta.220",
@@ -111,12 +112,11 @@
     "react-spring": "^9.7.1",
     "redux": "^4.2.1",
     "tslib": "^2.5.0",
+    "use-debounce": "^10.0.1",
     "uuid": "^9.0.0"
   },
   "peerDependencies": {
     "@adobe/react-spectrum": "^3.23.0",
-    "@jsonforms/core": "^3.0.0",
-    "@jsonforms/react": "^3.0.0",
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
