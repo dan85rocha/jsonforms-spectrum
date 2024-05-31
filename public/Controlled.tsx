@@ -3,7 +3,9 @@ import { JsonForms } from '@jsonforms/react';
 import { UPDATE_DATA, Middleware } from '@jsonforms/core';
 import _ from 'lodash';
 import { SpectrumCells, SpectrumRenderers } from '../src';
-import { defaultTheme, Provider as SpectrumThemeProvider } from '@adobe/react-spectrum';
+import { Button, defaultTheme, Flex, Footer, Provider as SpectrumThemeProvider, View } from '@adobe/react-spectrum';
+// import "./medium.css";
+import AppTheme from './theme';
 
 const initialData = {
   a: 1,
@@ -56,12 +58,15 @@ const FormProvider = ({ children, mode }) => {
   useEffect(() => {
     setColorScheme(mode);
   }, [mode]);
-
+  
+  
   return (
-    <SpectrumThemeProvider colorScheme={colorScheme} theme={defaultTheme}>
+    <SpectrumThemeProvider colorScheme={colorScheme} theme={AppTheme}>
       <ColorSchemeContext.Provider value={colorScheme}>
         <FormDataContext.Provider value={{ data, setData: (data) => setData(_.cloneDeep(data)) }}>
-          <FormSchemaContext.Provider value={{ schema, setSchema: (schema) => setSchema(_.cloneDeep(schema)) }}>
+          <FormSchemaContext.Provider
+            value={{ schema, setSchema: (schema) => setSchema(_.cloneDeep(schema)) }}
+          >
             {children}
           </FormSchemaContext.Provider>
         </FormDataContext.Provider>
@@ -86,7 +91,7 @@ const FormView = (props: FormViewProps) => {
   const { data: _data, setData } = useContext(FormDataContext);
   const { schema: _schema, setSchema } = useContext(FormSchemaContext);
   const [_uischema, setUischema] = useState(undefined);
-  const queue = useRef([]) // ??? should we use useRef here?
+  const queue = useRef([]); // ??? should we use useRef here?
 
   useEffect(() => {
     if (data && JSON.stringify(data) !== JSON.stringify(_data)) setData(data);
@@ -102,57 +107,58 @@ const FormView = (props: FormViewProps) => {
 
   const evaluate = useCallback(async (path, state, newState) => {
     // assumption: this method will wait for responses before returning results
-    const res: {data?: {}, schema?: {}, uischema?: {}} = {}
+    const res: { data?: {}; schema?: {}; uischema?: {} } = {};
     console.log('EVALUATE', path, state, newState);
     res.data = { ...newState.data, a: newState.data.a + 10 };
     const newLetter = getRandomLetter();
     if (!newState.schema.properties.c.items.enum.includes(newLetter)) {
-      console.log("NEW LETTER", newLetter)
+      console.log('NEW LETTER', newLetter);
       newState.schema.properties.c.items.enum.push(newLetter);
-      res.schema = newState.schema
+      res.schema = newState.schema;
     } else {
-      console.log("IGNORED LETTER", newLetter);
+      console.log('IGNORED LETTER', newLetter);
     }
-    return res
+    return res;
   }, []);
 
   // const debouncedEval = getDebouncedByType(evaluate, 3000, {});
 
   const addToQueue = (event) => {
     queue.current.push(event);
-  }
+  };
 
   const flush = useCallback(async () => {
-    console.log("FLUSH CALLED");
     if (queue) {
-      const firstEvent = _.head(queue.current)
-      const lastEvent = _.last(queue.current)
+      console.log('FLUSH CALLED');
+
+      const firstEvent = _.head(queue.current);
+      const lastEvent = _.last(queue.current);
       const prevState = firstEvent.prevState;
       const lastState = lastEvent.newState;
       const execOrder = new Set(queue.current.map((event) => event.action.path));
       let nextState = lastState;
-      let changes = {}
+      let changes = {};
       for await (const path of execOrder) {
-        const changeSet = await evaluate(path, prevState, nextState)
-        changes = {...changes, ...changeSet};
-        nextState = {...nextState, ...changeSet};
+        const changeSet = await evaluate(path, prevState, nextState);
+        changes = { ...changes, ...changeSet };
+        nextState = { ...nextState, ...changeSet };
       }
 
       if (changes) {
         for (const [key, value] of Object.entries(changes)) {
           if (key === 'data') {
-            console.log("SET DATA", value);
-            setData(value)
+            console.log('SET DATA', value);
+            setData(value);
           } else if (key === 'schema') {
-            console.log("SET SCHEMA", value);
-            setSchema(value)
+            console.log('SET SCHEMA', value);
+            setSchema(value);
           }
         }
       }
 
-      queue.current = [] // reset queue
+      queue.current = []; // reset queue
     }
-  }, [])
+  }, []);
 
   const debouncedFlush = _.debounce(flush, 500);
 
@@ -162,8 +168,8 @@ const FormView = (props: FormViewProps) => {
       case UPDATE_DATA: {
         console.log('ACTION', action);
         setData(newState.data); // optimistic update
-        addToQueue({action, prevState, newState})
-        debouncedFlush()
+        addToQueue({ action, prevState, newState });
+        debouncedFlush();
         return prevState;
       }
       default:
@@ -172,16 +178,14 @@ const FormView = (props: FormViewProps) => {
   }, []);
 
   return (
-    <>
-      <JsonForms
-        data={_data}
-        schema={_schema}
-        uischema={_uischema}
-        renderers={SpectrumRenderers}
-        cells={SpectrumCells}
-        middleware={middleware}
-      />
-    </>
+    <JsonForms
+      data={_data}
+      schema={_schema}
+      uischema={_uischema}
+      renderers={SpectrumRenderers}
+      cells={SpectrumCells}
+      middleware={middleware}
+    />
   );
 };
 
@@ -202,8 +206,8 @@ export const ControlledApp = () => {
   const [schema] = useState(initialSchema);
 
   return (
-    <div>
-      <FormProvider mode='dark'>
+    <FormProvider mode='dark'>
+      <View id="main" UNSAFE_className='scrollable-content'>
         <FormView data={data} schema={schema} />
         <PreView />
         <FormView
@@ -215,9 +219,67 @@ export const ControlledApp = () => {
             options: {
               codeMirror: true,
             },
-          }}
-        />
-      </FormProvider>
-    </div>
+        }} />
+        <p>test</p>
+        <p>test</p>
+        <p>test</p>
+        <p>test</p>
+        <p>test</p>
+        <p>test</p>
+        <p>test</p>
+        <p>test</p>
+        <p>test</p>
+        <p>test</p>
+        <p>test</p>
+        <p>test</p>
+        <p>test</p>
+        <p>test</p>
+        <p>test</p>
+        <p>test</p>
+        <p>test</p>
+        <p>test</p>
+        <p>test</p>
+        <p>test</p>
+        <p>test</p>
+        <p>test</p>
+        <p>test</p>
+        <p>test</p>
+        <p>test</p>
+        <p>test</p>
+        <p>test</p>
+        <p>test</p>
+        <p>test</p>
+        <p>test</p>
+        <p>test</p>
+        <p>test</p>
+        <p>test</p>
+        <p>test</p>
+        <p>test</p>
+        <p>test</p>
+      </View>
+      <Footer id="footer">
+        <Flex direction="column" gap="size-100">
+        <Flex direction="row">
+          <View flex>
+            Left buttons
+          </View>
+          <Flex direction="row" alignItems='end'>
+            <View>
+              <Button variant='accent'>Submit</Button>
+              <Button variant='secondary' style='fill'>Cancel</Button>
+            </View>
+          </Flex>
+        </Flex>
+        <View backgroundColor={"gray-300"}>
+          <Flex direction="row" gap="size-100">
+            <View flex>Left side</View>
+            <Flex direction="row" alignItems={'end'} >
+              <View flex>Right side</View>
+            </Flex>
+          </Flex>
+        </View>
+        </Flex>
+      </Footer>
+    </FormProvider>
   );
 };

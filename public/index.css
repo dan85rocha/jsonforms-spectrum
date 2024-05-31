@@ -2,11 +2,57 @@
   box-sizing: border-box;
 }
 
+html {
+  margin: 0;
+  padding: 0;
+}
+
 body {
+  background-color: rgb(29, 29, 29);
   margin: 0;
   padding: 0;
   font-family: sans-serif;
   height: 100%;
-  position: relative;
-  /* overflow-x: hidden; */
+}
+
+#root {
+  --spectrum-global-dimension-size-200: 0px
+}
+
+.scrollable-content {
+  /* rest of css*/
+  overflow-y: overlay;
+  overflow-x: hidden;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.scrollable-content::-webkit-scrollbar {
+  width: 8px;
+  background: transparent;
+}
+
+.scrollable-content::-webkit-scrollbar-thumb {
+  background: transparent;
+}
+
+.scrollable-content:hover::-webkit-scrollbar-thumb {
+    background-color: rgba(220, 220, 220, 0.3);
+}
+
+.scrollable-content:hover::-webkit-scrollbar-thumb {
+  background-color: rgba(220, 220, 220, 0.3);
+}
+
+.scrollable-content:active::-webkit-scrollbar-thumb {
+  background-color: rgba(220, 220, 220, 0.4);
+}
+
+#main {
+  height: calc(100vh - 80px)
+}
+
+#footer {
+  height: 80px;
+  border-top: 1px solid rgba(220, 220, 220, 0.2)
 }
